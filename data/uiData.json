@@ -10,6 +10,6 @@
   },
   "messages": {
     "checkoutSuccess": "Thank you for your order!",
-    "lockedUserError": "Epic sadface: Sorry, this user has been locked out."
+    "lockedUserError": "Sorry, this user has been locked out."
   }
 }

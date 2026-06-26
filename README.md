@@ -2,153 +2,161 @@
 
 ## 📌 Sobre o Projeto
 
-Este projeto foi desenvolvido como solução para o desafio técnico de QA Sênior, com foco em demonstrar boas práticas de automação de testes, arquitetura escalável, organização do código e integração contínua.
+Este projeto foi desenvolvido como solução para o desafio técnico de QA Sênior, com o objetivo de demonstrar conhecimentos em automação de testes, arquitetura escalável, boas práticas de desenvolvimento e integração contínua.
 
 A solução contempla:
 
-* Automação de testes de API
-* Automação de testes Web (UI)
-* Testes de Performance utilizando k6
-* Arquitetura baseada em Page Object Model (POM)
-* Validação de contrato da API
-* Dados parametrizados
-* Pipeline CI/CD utilizando GitHub Actions
-* Relatórios automáticos do Playwright
+* ✅ Automação de Testes de API
+* ✅ Automação de Testes Web (UI)
+* ✅ Testes de Performance utilizando k6
+* ✅ Arquitetura baseada em Page Object Model (POM)
+* ✅ Reutilização de código através de BasePage e APIClient
+* ✅ Validação de Contrato utilizando JSON Schema
+* ✅ Dados parametrizados (.env e arquivos JSON)
+* ✅ Pipeline CI/CD utilizando GitHub Actions
+* ✅ Relatórios HTML do Playwright
 
 ---
 
 # Tecnologias Utilizadas
 
-| Tecnologia     | Finalidade                             |
-| -------------- | -------------------------------------- |
-| Playwright     | Automação Web e API                    |
-| TypeScript     | Linguagem principal                    |
-| AJV            | Validação de contrato JSON             |
-| k6             | Testes de Performance                  |
-| GitHub Actions | Integração Contínua                    |
-| Node.js        | Runtime                                |
-| dotenv         | Gerenciamento de variáveis de ambiente |
+| Tecnologia      | Finalidade                        |
+| --------------- | --------------------------------- |
+| Playwright      | Automação de API e UI             |
+| TypeScript      | Linguagem principal               |
+| AJV             | Validação de contrato JSON Schema |
+| JSONPlaceholder | API pública utilizada             |
+| SauceDemo       | Aplicação Web utilizada           |
+| k6              | Testes de Performance             |
+| GitHub Actions  | Integração Contínua               |
+| Node.js         | Runtime                           |
+| dotenv          | Variáveis de ambiente             |
 
 ---
 
 # Arquitetura do Projeto
 
-```
-qa-senior-challenge/
+```text
+project-test/
 
-│
-├── .github/
-│     └── workflows/
-│           ci.yml
-│
-├── data/
-│     apiData.json
-│     uiData.json
-│
-├── pages/
-│     base/
-│          BasePage.ts
-│
-│     LoginPage.ts
-│     InventoryPage.ts
-│     CartPage.ts
-│     CheckoutPage.ts
-│
-├── performance/
-│     users-load.k6.js
-│
-├── schemas/
-│     user.schema.json
-│
-├── services/
-│     base/
-│          APIClient.ts
-│
-│     AuthService.ts
-│     UserService.ts
-│
-├── tests/
-│     api/
-│
-│     ui/
-│
-├── .env.example
-├── package.json
-├── playwright.config.ts
-└── README.md
+.github/
+    workflows/
+        ci.yml
+
+data/
+    apiData.json
+    uiData.json
+
+pages/
+    base/
+        BasePage.ts
+
+    LoginPage.ts
+    InventoryPage.ts
+    CartPage.ts
+    CheckoutPage.ts
+
+performance/
+    posts-load.k6.js
+
+schemas/
+    post.schema.json
+
+services/
+    base/
+        APIClient.ts
+
+    PostService.ts
+
+tests/
+    api/
+        posts.spec.ts
+        contract.spec.ts
+
+    ui/
+        login.spec.ts
+        purchase.spec.ts
+
+utils/
+    env.ts
+
+.env.example
+package.json
+playwright.config.ts
+README.md
 ```
 
 ---
 
 # Estratégia de Testes
 
-A estratégia adotada foi baseada na Pirâmide de Testes, priorizando testes de API e concentrando os testes de interface apenas nos fluxos críticos da aplicação.
+Foi utilizada a Pirâmide de Testes como estratégia principal, priorizando testes de API e mantendo poucos testes de UI, porém cobrindo o fluxo crítico da aplicação.
 
 ## API
 
-Foram automatizados cenários como:
+A API escolhida foi a **JSONPlaceholder**.
 
-* Consulta de usuário
-* Criação de usuário
-* Atualização
-* Exclusão
-* Login válido
-* Login inválido
-* Validação de contrato utilizando JSON Schema
+Foram implementados os seguintes cenários:
+
+* Consulta de Post (GET)
+* Consulta de recurso inexistente (404)
+* Criação de Post (POST)
+* Atualização completa (PUT)
+* Atualização parcial (PATCH)
+* Exclusão (DELETE)
+* Consulta de comentários relacionados
+* Validação de contrato JSON Schema
+* Utilização de dados dinâmicos durante criação
 
 ## UI
 
-Foi escolhido o fluxo principal da aplicação SauceDemo:
+Foi automatizado o fluxo principal da aplicação SauceDemo:
 
-* Login
-* Listagem de produtos
-* Adição ao carrinho
+* Login válido
+* Login com usuário bloqueado
+* Adição de produto ao carrinho
 * Checkout
 * Finalização da compra
 
-Além disso, foi implementado um cenário negativo para validar o comportamento de usuário bloqueado.
-
-## Performance
-
-Foi utilizado o k6 para validar:
-
-* Endpoint GET /users/2
-* Execução com múltiplos usuários virtuais
-* Thresholds de tempo de resposta
-* Taxa máxima de erro
+Todos os testes utilizam Page Object Model, dados parametrizados e validações funcionais.
 
 ---
 
 # Decisões Técnicas
 
-## Playwright
+## Escolha do Playwright
 
-Foi escolhido por permitir automação de API e UI utilizando a mesma tecnologia, além de oferecer:
+Foi escolhido por permitir automação de API e UI utilizando a mesma ferramenta, reduzindo complexidade e aumentando reutilização de código.
+
+Além disso oferece:
 
 * Execução paralela
+* Relatórios HTML
+* Captura automática de screenshots
+* Traces
 * Excelente integração com CI/CD
-* Relatórios nativos
-* Captura automática de evidências
-
-## Reqres
-
-Foi utilizada como API pública por ser simples e estável.
-
-Alguns status HTTP solicitados pelo desafio (401, 403 e 409) não são disponibilizados naturalmente pela API pública. Conforme permitido pelo enunciado do desafio, foram utilizados cenários equivalentes e essa adaptação foi documentada.
-
-## SauceDemo
-
-Foi escolhido por possuir um fluxo de compra completo, permitindo validar um processo crítico de ponta a ponta.
 
 ---
 
-# Arquitetura
+## Escolha da JSONPlaceholder
 
-O projeto foi desenvolvido utilizando princípios de reutilização e separação de responsabilidades.
+Inicialmente foi utilizada a Reqres.
 
-## BasePage
+Durante o desenvolvimento observou-se que a API passou a exigir API Key para diversas operações, o que tornou a execução em pipeline menos previsível.
 
-Centraliza ações comuns da interface, como:
+Optou-se pela migração para JSONPlaceholder por ser uma API pública estável, amplamente utilizada para testes e que atende adequadamente aos objetivos do desafio.
+
+Como a JSONPlaceholder não implementa autenticação nem persiste alterações realizadas via POST, PUT e DELETE, os cenários foram adaptados e essa decisão foi documentada conforme permitido pelo enunciado do desafio.
+
+---
+
+## Arquitetura
+
+### BasePage
+
+Centraliza comportamentos comuns da UI.
+
+Exemplos:
 
 * Navegação
 * Clique
@@ -157,35 +165,41 @@ Centraliza ações comuns da interface, como:
 
 Reduzindo duplicidade entre os Page Objects.
 
-## APIClient
+---
 
-Centraliza métodos HTTP comuns:
+### APIClient
+
+Centraliza métodos HTTP comuns.
 
 * GET
 * POST
 * PUT
+* PATCH
 * DELETE
 
-Permitindo que os Services implementem apenas as regras de negócio.
+Todos os Services reutilizam essa implementação.
 
-## Services
+---
 
-Cada Service representa um domínio da API.
+### Services
 
-Exemplo:
+Cada domínio da API possui um Service específico.
 
-* UserService
-* AuthService
+Neste projeto:
+
+* PostService
+
+Essa abordagem facilita manutenção e escalabilidade.
 
 ---
 
 # Dados Parametrizados
 
-Todos os dados utilizados nos testes encontram-se externalizados em arquivos JSON e variáveis de ambiente.
+Os testes utilizam dados externos para evitar hardcode.
 
-Exemplo:
+Arquivos utilizados:
 
-```
+```text
 data/apiData.json
 data/uiData.json
 .env
@@ -193,15 +207,36 @@ data/uiData.json
 
 ---
 
+# Testes de Performance
+
+Foi utilizado o **k6** para validar um endpoint da API.
+
+Cenário implementado:
+
+* GET /posts/1
+* Execução com múltiplos usuários virtuais
+* Threshold de tempo de resposta
+* Threshold de taxa de erro
+
+Execução:
+
+```bash
+npm run test:performance
+```
+
+---
+
 # Relatórios
 
-O projeto utiliza o Playwright Report.
+O projeto utiliza o Playwright HTML Report.
 
-Para visualizar:
+Gerar:
 
-```
+```bash
 npm run report
 ```
+
+Durante a execução da pipeline o relatório também é publicado como artefato.
 
 ---
 
@@ -209,69 +244,70 @@ npm run report
 
 ## Instalar dependências
 
-```
+```bash
 npm install
 ```
 
 ## Instalar browsers
 
-```
+```bash
 npx playwright install
 ```
 
 ## Executar todos os testes
 
-```
+```bash
 npm test
 ```
 
 ## Executar apenas API
 
-```
+```bash
 npm run test:api
 ```
 
 ## Executar apenas UI
 
-```
+```bash
 npm run test:ui
 ```
 
 ## Executar Performance
 
-```
+```bash
 npm run test:performance
 ```
 
 ---
 
-# CI/CD
+# Pipeline
 
-A pipeline do GitHub Actions executa automaticamente:
+A pipeline do GitHub Actions realiza automaticamente:
 
 * Instalação das dependências
-* Instalação dos browsers
-* Testes de API
-* Testes de UI
-* Testes de Performance
-* Publicação do relatório do Playwright
+* Instalação dos browsers do Playwright
+* Execução dos testes de API
+* Execução dos testes de UI
+* Publicação do relatório HTML
+
+Os testes de performance podem ser executados manualmente através do comando informado acima.
 
 ---
 
 # Melhorias Futuras
 
-Caso este projeto evoluísse para um ambiente corporativo, poderiam ser adicionados:
+Caso o projeto evoluísse para um ambiente corporativo, seriam adicionados:
 
-* Integração com Allure Report
+* Allure Report
+* Docker
 * Testes Cross Browser
 * Testes Mobile
 * Testes de Acessibilidade (Axe)
-* Execução paralela distribuída
-* Integração com SonarQube
-* Execução em Docker
+* Mock de APIs externas
+* SonarQube
+* Testes paralelos distribuídos
+* Massa de dados automatizada
 * Integração com Azure DevOps
-* Geração automática de massa de testes
-* Mock de serviços externos
 
 ---
 
@@ -289,11 +325,19 @@ Todo o código gerado foi analisado, adaptado, validado e testado manualmente an
 
 ## Exemplos de prompts utilizados
 
-* "Estruture um framework de automação em Playwright para um desafio de QA Sênior."
-* "Crie um BasePage reutilizável para Playwright."
-* "Implemente um APIClient compartilhado para reduzir duplicação."
+* "Como nunca utilizei o K6 para testes de performance, me auxilie nesse projeto inicial que montei para incluir melhorias e boas práticas a fim de obter um resultado positivo dos testes de api"
+* "Após a documentação criada e aprovada por mim. Implemente um APIClient compartilhado para reduzir duplicação."
 * "Sugira melhorias arquiteturais para um projeto de automação."
-* "Elabore um README profissional para um projeto de QA."
+* "Elabore um README profissional para um projeto de QA baseado no projeto que criei e sua arquitetura"
+
+
+---
+
+# Considerações
+
+O foco deste projeto foi priorizar qualidade da arquitetura, organização e reutilização de código em vez de quantidade de cenários automatizados.
+
+Essa abordagem busca refletir a forma como projetos de automação são estruturados em ambientes corporativos, priorizando escalabilidade, manutenção e clareza.
 
 ---
 
