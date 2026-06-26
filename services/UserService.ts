@@ -1,47 +1,32 @@
 import { APIRequestContext } from '@playwright/test';
+import { APIClient } from './base/APIClient';
 
-export class UserService {
+export class UserService extends APIClient {
   constructor(
-    private request: APIRequestContext,
-    private baseUrl: string,
-    private apiKey: string
-  ) {}
-
-  private headers() {
-    return {
-      'x-api-key': this.apiKey
-    };
+    request: APIRequestContext,
+    baseUrl: string,
+    apiKey?: string
+  ) {
+    super(request, baseUrl, apiKey);
   }
 
   async getUserById(id: number) {
-    return this.request.get(`${this.baseUrl}/users/${id}`, {
-      headers: this.headers()
-    });
-  }
-
-  async createUser(payload: object) {
-    return this.request.post(`${this.baseUrl}/users`, {
-      headers: this.headers(),
-      data: payload
-    });
-  }
-
-  async updateUser(id: number, payload: object) {
-    return this.request.put(`${this.baseUrl}/users/${id}`, {
-      headers: this.headers(),
-      data: payload
-    });
-  }
-
-  async deleteUser(id: number) {
-    return this.request.delete(`${this.baseUrl}/users/${id}`, {
-      headers: this.headers()
-    });
+    return this.get(`/users/${id}`);
   }
 
   async getNotFoundUser() {
-    return this.request.get(`${this.baseUrl}/users/999`, {
-      headers: this.headers()
-    });
+    return this.get('/users/999');
+  }
+
+  async createUser(payload: object) {
+    return this.post('/users', payload);
+  }
+
+  async updateUser(id: number, payload: object) {
+    return this.put(`/users/${id}`, payload);
+  }
+
+  async deleteUser(id: number) {
+    return this.delete(`/users/${id}`);
   }
 }

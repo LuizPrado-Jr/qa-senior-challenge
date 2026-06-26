@@ -1,14 +1,17 @@
 import { Page, expect } from '@playwright/test';
+import { BasePage } from './base/BasePage';
 
-export class InventoryPage {
-  constructor(private page: Page) {}
+export class InventoryPage extends BasePage {
+  constructor(page: Page) {
+    super(page);
+  }
 
   private title = '[data-test="title"]';
   private cartBadge = '[data-test="shopping-cart-badge"]';
   private cartLink = '[data-test="shopping-cart-link"]';
 
   async validateInventoryPage() {
-    await expect(this.page.locator(this.title)).toHaveText('Products');
+    await this.validateText(this.title, 'Products');
   }
 
   async addProductToCart(productName: string) {
@@ -20,10 +23,10 @@ export class InventoryPage {
   }
 
   async validateCartQuantity(quantity: string) {
-    await expect(this.page.locator(this.cartBadge)).toHaveText(quantity);
+    await this.validateText(this.cartBadge, quantity);
   }
 
   async goToCart() {
-    await this.page.click(this.cartLink);
+    await this.click(this.cartLink);
   }
 }

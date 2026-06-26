@@ -1,29 +1,20 @@
 import { APIRequestContext } from '@playwright/test';
+import { APIClient } from './base/APIClient';
 
-export class AuthService {
+export class AuthService extends APIClient {
   constructor(
-    private request: APIRequestContext,
-    private baseUrl: string,
-    private apiKey: string
-  ) {}
-
-  private headers() {
-    return {
-      'x-api-key': this.apiKey
-    };
+    request: APIRequestContext,
+    baseUrl: string,
+    apiKey?: string
+  ) {
+    super(request, baseUrl, apiKey);
   }
 
   async login(payload: object) {
-    return this.request.post(`${this.baseUrl}/login`, {
-      headers: this.headers(),
-      data: payload
-    });
+    return this.post('/login', payload);
   }
 
   async register(payload: object) {
-    return this.request.post(`${this.baseUrl}/register`, {
-      headers: this.headers(),
-      data: payload
-    });
+    return this.post('/register', payload);
   }
 }
