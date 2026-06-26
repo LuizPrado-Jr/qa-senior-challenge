@@ -25,9 +25,9 @@ test.describe('UI - Login', () => {
     await loginPage.goto();
 
     await loginPage.login(
-      process.env.LOCKED_USER as string,
-      process.env.PASSWORD as string
-    );
+      env.lockedUser,
+      env.password
+  );
 
     await loginPage.validateLoginError(uiData.messages.lockedUserError);
   });

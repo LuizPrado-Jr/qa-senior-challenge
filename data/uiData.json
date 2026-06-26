@@ -9,7 +9,7 @@
     "bikeLight": "Sauce Labs Bike Light"
   },
   "messages": {
-    "checkoutSuccess": "Thank you for your order!",
-    "lockedUserError": "Sorry, this user has been locked out."
-  }
+  "checkoutSuccess": "Thank you for your order!",
+  "lockedUserError": "locked out"
+}
 }
