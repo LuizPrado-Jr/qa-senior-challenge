@@ -3,14 +3,12 @@ import { APIRequestContext, APIResponse } from '@playwright/test';
 export class APIClient {
   constructor(
     protected request: APIRequestContext,
-    protected baseUrl: string,
-    protected apiKey?: string
+    protected baseUrl: string
   ) {}
 
   protected getHeaders() {
     return {
-      'Content-Type': 'application/json',
-      ...(this.apiKey && { 'x-api-key': this.apiKey })
+      'Content-Type': 'application/json'
     };
   }
 
@@ -29,6 +27,13 @@ export class APIClient {
 
   async put(endpoint: string, payload: object): Promise<APIResponse> {
     return this.request.put(`${this.baseUrl}${endpoint}`, {
+      headers: this.getHeaders(),
+      data: payload
+    });
+  }
+
+  async patch(endpoint: string, payload: object): Promise<APIResponse> {
+    return this.request.patch(`${this.baseUrl}${endpoint}`, {
       headers: this.getHeaders(),
       data: payload
     });

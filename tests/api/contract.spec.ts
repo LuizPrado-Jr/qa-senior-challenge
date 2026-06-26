@@ -1,29 +1,22 @@
 import { test, expect } from '@playwright/test';
 import Ajv from 'ajv';
-import { UserService } from '../../services/UserService';
-import userSchema from '../../schemas/user.schema.json';
+import { PostService } from '../../services/PostService';
+import postSchema from '../../schemas/post.schema.json';
 import { env } from '../../utils/env';
 
-const baseUrl = process.env.API_BASE_URL as string;
-const apiKey = process.env.REQRES_API_KEY as string;
-
 test.describe('API - Contract', () => {
-  let userService: UserService;
+  let postService: PostService;
 
   test.beforeEach(async ({ request }) => {
-    userService = new UserService(
-      request,
-      env.apiBaseUrl,
-      env.reqresApiKey
-    );
+    postService = new PostService(request, env.apiBaseUrl);
   });
 
-  test('Should validate user response contract', async () => {
-    const response = await userService.getUserById(2);
+  test('Should validate post response contract', async () => {
+    const response = await postService.getPostById(1);
     const body = await response.json();
 
     const ajv = new Ajv();
-    const validate = ajv.compile(userSchema);
+    const validate = ajv.compile(postSchema);
     const isValid = validate(body);
 
     expect(response.status()).toBe(200);

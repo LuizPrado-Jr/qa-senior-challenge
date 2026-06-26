@@ -1,17 +1,15 @@
 {
-  "validUser": {
-    "name": "Luiz QA",
-    "job": "QA Senior"
+  "post": {
+    "userId": 1,
+    "title": "QA Senior Challenge",
+    "body": "Automated API test using Playwright and JSONPlaceholder"
   },
-  "updatedUser": {
-    "name": "Luiz QA Updated",
-    "job": "QA Automation Senior"
+  "updatedPost": {
+    "userId": 1,
+    "title": "QA Senior Challenge Updated",
+    "body": "Updated post using PUT request"
   },
-  "validLogin": {
-    "email": "eve.holt@reqres.in",
-    "password": "cityslicka"
-  },
-  "invalidLogin": {
-    "email": "peter@klaven"
+  "patchedPost": {
+    "title": "Partially Updated Title"
   }
 }
