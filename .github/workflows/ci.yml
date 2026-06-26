@@ -34,15 +34,6 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Validate Secret
-        run: |
-          if [ -z "$REQRES_API_KEY" ]; then
-            echo "Secret not configured"
-            exit 1
-          else
-            echo "Secret OK"
-          fi
-
       - name: Run API tests
         run: npm run test:api
 
