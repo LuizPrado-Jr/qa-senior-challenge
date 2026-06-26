@@ -1,0 +1,30 @@
+
+# Playwright
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# dependencies
+node_modules/
+
+# reports
+playwright-report/
+test-results/
+allure-results/
+allure-report/
+
+# env
+.env
+
+# vscode
+.vscode/
+
+# logs
+*.log
+
+# coverage
+coverage/
+
+# k6
+*.csv
+*.json
