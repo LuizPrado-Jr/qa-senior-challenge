@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
-    "test:api": "npx playwright test tests/api",
-    "test:ui": "npx playwright test tests/ui",
-    "test:headed": "npx playwright test tests/ui --headed",
+    "test:api": "npx playwright test --project=api",
+    "test:ui": "npx playwright test --project=chromium",
+    "test:headed": "npx playwright test --project=chromium --headed",
     "test:performance": "k6 run performance/users-load.k6.js",
     "report": "npx playwright show-report"
   },
