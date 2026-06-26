@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { AuthService } from '../../services/AuthService';
 import apiData from '../../data/apiData.json';
+import { env } from '../../utils/env';
 
 const baseUrl = process.env.API_BASE_URL as string;
 const apiKey = process.env.REQRES_API_KEY as string;
@@ -9,7 +10,11 @@ test.describe('API - Auth', () => {
   let authService: AuthService;
 
   test.beforeEach(async ({ request }) => {
-    authService = new AuthService(request, baseUrl, apiKey);
+    authService = new AuthService(
+    request,
+    env.apiBaseUrl,
+    env.reqresApiKey
+  );
   });
 
   test('Should login successfully', async () => {

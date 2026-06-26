@@ -4,6 +4,7 @@ import { InventoryPage } from '../../pages/InventoryPage';
 import { CartPage } from '../../pages/CartPage';
 import { CheckoutPage } from '../../pages/CheckoutPage';
 import uiData from '../../data/uiData.json';
+import { env } from '../../utils/env';
 
 test.describe('UI - Purchase Flow', () => {
   test('Should complete purchase successfully', async ({ page }) => {
@@ -15,9 +16,9 @@ test.describe('UI - Purchase Flow', () => {
     await loginPage.goto();
 
     await loginPage.login(
-      process.env.STANDARD_USER as string,
-      process.env.PASSWORD as string
-    );
+      env.standardUser,
+      env.password
+);
 
     await inventoryPage.validateInventoryPage();
 

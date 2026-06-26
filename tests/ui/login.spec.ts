@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 import { InventoryPage } from '../../pages/InventoryPage';
 import uiData from '../../data/uiData.json';
+import { env } from '../../utils/env';
 
 test.describe('UI - Login', () => {
   test('Should login successfully with valid user', async ({ page }) => {
@@ -11,9 +12,9 @@ test.describe('UI - Login', () => {
     await loginPage.goto();
 
     await loginPage.login(
-      process.env.STANDARD_USER as string,
-      process.env.PASSWORD as string
-    );
+      env.standardUser,
+      env.password
+);
 
     await inventoryPage.validateInventoryPage();
   });
