@@ -27,4 +27,3 @@ coverage/
 
 # k6
 *.csv
-*.json

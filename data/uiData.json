@@ -1,0 +1,15 @@
+{
+  "checkoutUser": {
+    "firstName": "Luiz",
+    "lastName": "QA",
+    "postalCode": "89200000"
+  },
+  "products": {
+    "backpack": "Sauce Labs Backpack",
+    "bikeLight": "Sauce Labs Bike Light"
+  },
+  "messages": {
+    "checkoutSuccess": "Thank you for your order!",
+    "lockedUserError": "Epic sadface: Sorry, this user has been locked out."
+  }
+}

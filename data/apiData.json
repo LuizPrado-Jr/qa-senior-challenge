@@ -1,0 +1,17 @@
+{
+  "validUser": {
+    "name": "Luiz QA",
+    "job": "QA Senior"
+  },
+  "updatedUser": {
+    "name": "Luiz QA Updated",
+    "job": "QA Automation Senior"
+  },
+  "validLogin": {
+    "email": "eve.holt@reqres.in",
+    "password": "cityslicka"
+  },
+  "invalidLogin": {
+    "email": "peter@klaven"
+  }
+}
